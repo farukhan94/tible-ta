@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tible_app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - SESSION_DRIVER=cookie
+      - CACHE_DRIVER=array
+      - SESSION_LIFETIME=120
+      - SESSION_ENCRYPT=false
+      - SESSION_COOKIE=tible_session
+    networks:
+      - tible-network
+
+networks:
+  tible-network:
+    driver: bridge
