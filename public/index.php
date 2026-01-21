@@ -16,7 +16,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
@@ -31,7 +31,7 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +44,35 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-$response = $kernel->handle(
-    $request = Request::capture()
-)->send();
+// Debug Probe
+try {
+    $response = $kernel->handle(
+        $request = Request::capture()
+    );
+} catch (\Throwable $e) {
+    error_log("CRITICAL ERROR PROBE:");
+    error_log("Exception: " . $e->getMessage());
+    error_log("Trace: " . $e->getTraceAsString());
+
+    // Check if configuration is loaded
+    $appConfig = config('app');
+    if ($appConfig) {
+        error_log("Config 'app' loaded. Name: " . ($appConfig['name'] ?? 'Unset'));
+        error_log("Providers count: " . count($appConfig['providers'] ?? []));
+        // Check for TranslationServiceProvider
+        $hasTranslator = in_array('Illuminate\Translation\TranslationServiceProvider', $appConfig['providers'] ?? []);
+        error_log("TranslationServiceProvider loaded: " . ($hasTranslator ? 'YES' : 'NO'));
+    } else {
+        error_log("Config 'app' is NULL or Empty!");
+    }
+
+    throw $e;
+}
+
+$response->send();
 
 $kernel->terminate($request, $response);
