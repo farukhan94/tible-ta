@@ -1,5 +1,18 @@
 <?php
 
+// FORCE CLEAR LARAVEL CACHE FOR VERCEL
+$cacheFiles = [
+    __DIR__ . '/../bootstrap/cache/config.php',
+    __DIR__ . '/../bootstrap/cache/packages.php',
+    __DIR__ . '/../bootstrap/cache/services.php',
+];
+foreach ($cacheFiles as $file) {
+    if (file_exists($file)) {
+        @unlink($file);
+        error_log("Deleted stale cache file: " . basename($file));
+    }
+}
+
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 

@@ -1,4 +1,5 @@
 <?php
+error_log('DEBUG: config/app.php is being read!');
 
 return [
 
