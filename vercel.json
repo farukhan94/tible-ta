@@ -19,15 +19,12 @@
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "false",
+    "APP_KEY": "base64:onEtyFyPpA5OCljDZuPUw1zl6ASNoUXjRcTCcIs3z/k=",
     "SESSION_DRIVER": "cookie",
     "CACHE_DRIVER": "array",
     "SESSION_LIFETIME": "120",
     "SESSION_ENCRYPT": "false",
     "SESSION_COOKIE": "tible_session",
-    "APP_CONFIG_CACHE": "/tmp/config.php",
-    "APP_ROUTES_CACHE": "/tmp/routes.php",
-    "APP_EVENTS_CACHE": "/tmp/events.php",
-    "VIEW_COMPILED_PATH": "/tmp",
     "LOG_CHANNEL": "stderr"
   }
 }
