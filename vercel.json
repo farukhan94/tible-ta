@@ -16,6 +16,7 @@
       "dest": "api/index.php"
     }
   ],
+  "buildCommand": "composer install --no-dev --optimize-autoloader --no-interaction",
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "false",
