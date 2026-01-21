@@ -26,6 +26,7 @@
     "SESSION_LIFETIME": "120",
     "SESSION_ENCRYPT": "false",
     "SESSION_COOKIE": "tible_session",
+    "VIEW_COMPILED_PATH": "/tmp/views",
     "LOG_CHANNEL": "stderr"
   }
 }
